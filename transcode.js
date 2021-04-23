@@ -2,7 +2,7 @@ const { spawnSync } = require("child_process");
 
 /**
  * ffmpeg commands to transocde a fole 480p
- * @param {*} path
+ * @param {String} path
  */
 function transcode(path) {
   var ff = spawnSync(
