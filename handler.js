@@ -8,6 +8,7 @@ const { ls } = require("./ls");
 // const jwt = "";
 
 const { downloadFile } = require("./downloadfile");
+const { mkdir } = require("./mkdir");
 
 module.exports.hello = async (event) => {
   try {
@@ -16,6 +17,9 @@ module.exports.hello = async (event) => {
       "/tmp/vidoe2.mp4"
     );
     ls("/tmp");
+    mkdir("tmp/video1");
+    ls("/tmp");
+    ls("/opt/ffmpeg");
     ls("/opt");
     ls("/opt/ffmpeg");
     transcode("/tmp/vidoe2.mp4");
