@@ -15,7 +15,9 @@ module.exports.hello = async (event) => {
       "https://filesamples.com/samples/video/mp4/sample_1280x720.mp4",
       "/tmp/vidoe2.mp4"
     );
-
+    ls("/tmp");
+    ls("/opt");
+    ls("/opt/ffmpeg");
     transcode("/tmp/vidoe2.mp4");
     ls("/tmp");
   } catch (error) {
