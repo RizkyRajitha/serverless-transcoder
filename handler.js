@@ -12,18 +12,18 @@ const { mkdir } = require("./mkdir");
 
 module.exports.hello = async (event) => {
   try {
-    await downloadFile(
-      "https://filesamples.com/samples/video/mp4/sample_1280x720.mp4",
-      "/tmp/vidoe2.mp4"
-    );
+    // await downloadFile(
+    //   "https://filesamples.com/samples/video/mp4/sample_1280x720.mp4",
+    //   "/tmp/vidoe2.mp4"
+    // );
     ls("/tmp");
-    mkdir("tmp/video1");
+    mkdir("~/tmp/video1");
     ls("/tmp");
     ls("/opt/ffmpeg");
     ls("/opt");
-    ls("/opt/ffmpeg");
-    transcode("/tmp/vidoe2.mp4");
-    ls("/tmp");
+    // ls("/opt/ffmpeg");
+    // transcode("/tmp/vidoe2.mp4");
+    // ls("/tmp");
   } catch (error) {
     console.log(error);
   }
