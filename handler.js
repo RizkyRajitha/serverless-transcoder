@@ -1,22 +1,23 @@
-const AWS = require("aws-sdk");
+// const AWS = require("aws-sdk");
 const { transcode } = require("./transcode");
-const BUCKET_NAME = "resource-platform-vod";
-const IAMKEY = process.env.IAMKEY;
-const IAMSECRET = process.env.IAMSECRET;
-const API = "https://backerly.herokuapp.com";
-const jwt = "";
+const { ls } = require("./ls");
+// const BUCKET_NAME = "resource-platform-vod";
+// const IAMKEY = process.env.IAMKEY;
+// const IAMSECRET = process.env.IAMSECRET;
+// const API = "https://backerly.herokuapp.com";
+// const jwt = "";
 
 const { downloadFile } = require("./downloadfile");
 
 module.exports.hello = async (event) => {
   try {
-    await downloadImage(
+    await downloadFile(
       "https://filesamples.com/samples/video/mp4/sample_1280x720.mp4",
       "/tmp/vidoe2.mp4"
     );
 
     transcode("/tmp/vidoe2.mp4");
-    
+    ls("/tmp");
   } catch (error) {
     console.log(error);
   }
