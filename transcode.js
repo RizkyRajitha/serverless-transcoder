@@ -1,6 +1,4 @@
-const { rejects } = require("assert");
 const { spawnSync } = require("child_process");
-const { resolve } = require("path");
 const env = process.env.NODE_ENV || "dev";
 
 const ffmpegPath =
@@ -59,14 +57,14 @@ function transcode(filePath, outputPath, outputFilename) {
   );
   console.log("stdout here: \n" + ff.stdout);
   console.log(ff);
-  return new Promise((resolve, reject) => {
-    if (ff.stderr) {
-      reject(ff.stderr);
-      return;
-    }
+  // return new Promise((resolve, reject) => {
+  //   if (ff.stderr) {
+  //     reject(ff.stderr);
+  //     return;
+  //   }
 
-    resolve(ff.stdout);
-  });
+  //   resolve(ff.stdout);
+  // });
 }
 
 module.exports.transcode = transcode;

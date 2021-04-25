@@ -26,12 +26,17 @@ module.exports.hello = async (event) => {
       );
       pwd();
       ls("/tmp");
+      console.log("create dir");
       await mkdir("/tmp/video720p");
+      console.log("ls temp");
       ls("/tmp");
       // ls("/opt/ffmpeg");
       // ls("/opt");
       // ls("/opt/ffmpeg");
-      await transcode("/tmp/vidoe2.mp4", "/tmp/video720p", "reansoc");
+      console.log("start transcoding");
+      transcode("/tmp/vidoe2.mp4", "/tmp/video720p", "reansoc");
+      console.log("end transcoding");
+      // await transcode("/tmp/vidoe2.mp4", "/tmp/video720p", "reansoc");
       // transcode("/tmp/vidoe2.mp4");
       ls("/tmp");
       ls("/tmp/video720p");
