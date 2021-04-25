@@ -21,7 +21,8 @@ module.exports.hello = async (event) => {
       await transcode("video1080p.mp4", "video720p", "reansoc");
     } else {
       await downloadFile(
-        "https://filesamples.com/samples/video/mp4/sample_1280x720.mp4",
+        // "https://filesamples.com/samples/video/mp4/sample_1280x720.mp4",
+        // "https://filesamples.com/samples/video/mp4/sample_1280x720_surfing_with_audio.mp4",
         "/tmp/vidoe2.mp4"
       );
       pwd();

@@ -117,6 +117,9 @@ functions:
 layers:
   ffmpeg:
     path: layer
+custom:
+
+  bucket: resource-platform-vod
 # plugins:
 
 #   - serverless-offline
