@@ -8,7 +8,7 @@ function ls(path) {
   let ls = spawnSync("ls", ["-l", `${path}`], {
     encoding: "utf8",
   });
-  console.log("stdout here: \n" + ls.stdout);
+  console.log(`ls (${path}): \n ${ls.stdout}`);
 }
 
 module.exports.ls = ls;

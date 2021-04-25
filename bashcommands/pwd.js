@@ -8,8 +8,10 @@ function pwd() {
   let pwd = spawnSync("pwd", {
     encoding: "utf8",
   });
-  console.log("stdout here: \n" + pwd.stdout);
-  console.log(pwd);
+
+  console.log(`pwd : \n ${pwd.stdout}`);
+
+  // console.log(pwd);
 }
 
 // pwd();

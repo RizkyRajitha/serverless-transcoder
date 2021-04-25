@@ -12,9 +12,9 @@ function mkdir(path) {
   });
 
   // mkdir.
-  console.log("stdout here: \n" + mkdir.stdout);
-  console.log(mkdir);
-  console.log(mkdir.error);
+  console.log("mkdir here: \n" + mkdir.stdout);
+  // console.log(mkdir);
+  // console.log(mkdir.error);
 
   return new Promise((resolve, reject) => {
     if (mkdir.stderr) {

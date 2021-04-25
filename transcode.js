@@ -11,6 +11,7 @@ const ffmpegPath =
  * @param {String} outputFilename
  */
 function transcode(filePath, outputPath, outputFilename) {
+  console.log("starting transcoding..");
   let ff = spawnSync(
     ffmpegPath,
     [
@@ -55,6 +56,7 @@ function transcode(filePath, outputPath, outputFilename) {
     ],
     { encoding: "utf8" }
   );
+  console.log(" transcoding compleated");
   console.log("stdout here: \n" + ff.stdout);
   console.log(ff);
   // return new Promise((resolve, reject) => {

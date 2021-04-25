@@ -27,23 +27,26 @@ function uploadFolder(folderPath, fileName) {
 
   let fileprefix = `${datenow.getDate()}${datenow.getMonth()}${datenow.getFullYear()}${datenow.getHours()}${datenow.getMinutes()}${datenow.getSeconds()}${datenow.getMilliseconds()}`;
   let proarr = [];
+  console.log("starting to upload to s3");
 
   return new Promise((resolve, reject) => {
     fs.readdirSync(folderPath).map(async (file) => {
       console.log(file);
       let key = `${fileName}-${fileprefix}/${file}`;
       let uploadPromise = uploadFile(key, folderPath, file);
-      try {
+      proarr.push(uploadPromise);
+
+    });
+    try {
         let uploads = await Promise.all(proarr);
         console.log("s3");
         console.log(uploads);
         resolve(uploads);
+        console.log("uploaded to s3");
       } catch (error) {
         console.log(error);
         reject(error);
       }
-    });
-
     // console.log(redda);
     // proarr.push(redda);
   });
