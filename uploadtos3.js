@@ -20,7 +20,7 @@ let s3bucket = new AWS.S3({
  * upload Folder to s3 bucket
  * @param {*} folderPath
  * @param {*} fileName
- * @returns
+ * @returns Promise
  */
 function uploadFolder(folderPath, fileName) {
   let datenow = new Date();
@@ -29,24 +29,23 @@ function uploadFolder(folderPath, fileName) {
   let proarr = [];
   console.log("starting to upload to s3");
 
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     fs.readdirSync(folderPath).map(async (file) => {
       console.log(file);
       let key = `${fileName}-${fileprefix}/${file}`;
       let uploadPromise = uploadFile(key, folderPath, file);
       proarr.push(uploadPromise);
-
     });
     try {
-        let uploads = await Promise.all(proarr);
-        console.log("s3");
-        console.log(uploads);
-        resolve(uploads);
-        console.log("uploaded to s3");
-      } catch (error) {
-        console.log(error);
-        reject(error);
-      }
+      let uploads = await Promise.all(proarr);
+      console.log("s3");
+      console.log(uploads);
+      resolve(uploads);
+      console.log("uploaded to s3");
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
     // console.log(redda);
     // proarr.push(redda);
   });
@@ -65,7 +64,7 @@ function uploadFile(key, filePath, fileName) {
 
     console.log(key, filePath, fileName);
     try {
-      const fileContent = await fsp.readFile(`${filePath}${fileName}`);
+      const fileContent = await fsp.readFile(`${filePath}/${fileName}`);
 
       // const fileContent = fs.readFileSync(`/tmp/${fileName}`);
       // Setting up S3 upload parameters
