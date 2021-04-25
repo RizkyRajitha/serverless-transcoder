@@ -1,6 +1,10 @@
 const { rejects } = require("assert");
 const { spawnSync } = require("child_process");
 const { resolve } = require("path");
+const env = process.env.NODE_ENV || "dev";
+
+const ffmpegPath =
+  env === "dev" ? __dirname + "/layer/ffmpeg/ffmpeg" : "/opt/ffmpeg/ffmpeg";
 
 /**
  * ffmpeg commands to transocde a fole 360p
@@ -10,7 +14,7 @@ const { resolve } = require("path");
  */
 function transcode(filePath, outputPath, outputFilename) {
   let ff = spawnSync(
-    "/opt/ffmpeg/ffmpeg",
+    ffmpegPath,
     [
       "-i",
       // "-hide_banner ",

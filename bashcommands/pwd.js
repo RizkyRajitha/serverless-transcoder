@@ -12,5 +12,5 @@ function pwd() {
   console.log(pwd);
 }
 
-pwd();
+// pwd();
 module.exports.pwd = pwd;
