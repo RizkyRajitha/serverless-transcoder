@@ -1,6 +1,6 @@
 // const AWS = require("aws-sdk");
 const { transcode } = require("./transcode");
-const { ls } = require("./ls");
+const { ls } = require("./fs/ls");
 // const BUCKET_NAME = "resource-platform-vod";
 // const IAMKEY = process.env.IAMKEY;
 // const IAMSECRET = process.env.IAMSECRET;
@@ -8,7 +8,7 @@ const { ls } = require("./ls");
 // const jwt = "";
 
 const { downloadFile } = require("./downloadfile");
-const { mkdir } = require("./mkdir");
+const { mkdir } = require("./fs/mkdir");
 const { pwd } = require("./pwd");
 
 module.exports.hello = async (event) => {
