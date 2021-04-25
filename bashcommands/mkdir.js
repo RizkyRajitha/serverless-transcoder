@@ -1,4 +1,6 @@
+const { rejects } = require("assert");
 const { spawnSync } = require("child_process");
+const { resolve } = require("path");
 
 /**
  * list directory
@@ -8,8 +10,20 @@ function mkdir(path) {
   let mkdir = spawnSync("mkdir", [`${path}`], {
     encoding: "utf8",
   });
+
+  // mkdir.
   console.log("stdout here: \n" + mkdir.stdout);
   console.log(mkdir);
+  console.log(mkdir.error);
+
+  return new Promise((resolve, reject) => {
+    if (mkdir.stderr) {
+      reject(mkdir.stderr);
+      return;
+    }
+
+    resolve(mkdir.stdout);
+  });
 }
 
 // mkdir("layer/adadd");

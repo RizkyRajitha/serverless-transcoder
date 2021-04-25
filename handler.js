@@ -1,6 +1,6 @@
 // const AWS = require("aws-sdk");
 const { transcode } = require("./transcode");
-const { ls } = require("./fs/ls");
+const { ls } = require("./bashcommands/ls");
 // const BUCKET_NAME = "resource-platform-vod";
 // const IAMKEY = process.env.IAMKEY;
 // const IAMSECRET = process.env.IAMSECRET;
@@ -8,7 +8,7 @@ const { ls } = require("./fs/ls");
 // const jwt = "";
 
 const { downloadFile } = require("./downloadfile");
-const { mkdir } = require("./fs/mkdir");
+const { mkdir } = require("./bashcommands/mkdir");
 const { pwd } = require("./pwd");
 
 module.exports.hello = async (event) => {
@@ -19,13 +19,15 @@ module.exports.hello = async (event) => {
     );
     pwd();
     ls("/tmp");
-    mkdir("/tmp/video1");
+    await mkdir("/tmp/video720p");
     ls("/tmp");
     ls("/opt/ffmpeg");
     ls("/opt");
     ls("/opt/ffmpeg");
-    transcode("/tmp/vidoe2.mp4");
+    await transcode("/tmp/vidoe2.mp4", "/tmp/video720p", "reansoc");
+    // transcode("/tmp/vidoe2.mp4");
     ls("/tmp");
+    ls("/tmp/video720p");
   } catch (error) {
     console.log(error);
   }

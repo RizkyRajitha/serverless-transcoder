@@ -1,16 +1,20 @@
+const { rejects } = require("assert");
 const { spawnSync } = require("child_process");
+const { resolve } = require("path");
 
 /**
- * ffmpeg commands to transocde a fole 480p
- * @param {String} path
+ * ffmpeg commands to transocde a fole 360p
+ * @param {String} filePath
+ * @param {String} outputPath
+ * @param {String} outputFilename
  */
-function transcode(path) {
-  var ff = spawnSync(
+function transcode(filePath, outputPath, outputFilename) {
+  let ff = spawnSync(
     "/opt/ffmpeg/ffmpeg",
     [
       "-i",
       // "-hide_banner ",
-      `${path}`,
+      `${filePath}`,
       "-vf",
       "scale=w=640:h=360:force_original_aspect_ratio=decrease",
       "-c:a",
@@ -42,13 +46,23 @@ function transcode(path) {
       "-hls_playlist_type",
       "vod",
       "-hls_segment_filename",
-      "/tmp/720p_%03d.ts",
-      "/tmp/720pasasasa.m3u8",
+      `${outputPath}/${outputFilename}360p_%03d.ts`,
+      `${outputPath}/${outputFilename}360p.m3u8`,
+      // "/tmp/720p_%03d.ts",
+      // "/tmp/720pasasasa.m3u8",
     ],
     { encoding: "utf8" }
   );
   console.log("stdout here: \n" + ff.stdout);
   console.log(ff);
+  return new Promise((resolve, reject) => {
+    if (ff.stderr) {
+      reject(ff.stderr);
+      return;
+    }
+
+    resolve(ff.stdout);
+  });
 }
 
 module.exports.transcode = transcode;
