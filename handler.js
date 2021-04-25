@@ -11,9 +11,11 @@ const env = process.env.NODE_ENV || "dev";
 const { downloadFile } = require("./downloadfile");
 const { mkdir } = require("./bashcommands/mkdir");
 const { pwd } = require("./bashcommands/pwd");
+const { uploadFolder } = require("./uploadtos3");
 
 module.exports.hello = async (event) => {
   try {
+    console.log(env);
     if (env === "dev") {
       await mkdir("video720p");
       await transcode("video1080p.mp4", "video720p", "reansoc");
@@ -26,13 +28,14 @@ module.exports.hello = async (event) => {
       ls("/tmp");
       await mkdir("/tmp/video720p");
       ls("/tmp");
-      ls("/opt/ffmpeg");
-      ls("/opt");
-      ls("/opt/ffmpeg");
+      // ls("/opt/ffmpeg");
+      // ls("/opt");
+      // ls("/opt/ffmpeg");
       await transcode("/tmp/vidoe2.mp4", "/tmp/video720p", "reansoc");
       // transcode("/tmp/vidoe2.mp4");
       ls("/tmp");
       ls("/tmp/video720p");
+      await uploadFolder("/tmp/video720p", "ultralegendpro");
     }
   } catch (error) {
     console.log(error);
