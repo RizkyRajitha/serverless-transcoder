@@ -24,6 +24,21 @@ provider:
   name: aws
   runtime: nodejs12.x
   lambdaHashingVersion: 20201221
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+            - s3:GetObject
+          Resource: "arn:aws:s3:::${self:custom.bucket}/*"
+
+  # iamRoleStatements:
+  # - Effect: Allow
+  #   Action:
+  #     - s3:PutObject
+  #     - s3:GetObject
+  #   Resource: "arn:aws:s3:::${self:custom.bucket}/*"
 
 # you can overwrite defaults here
 #  stage: dev
@@ -51,11 +66,11 @@ provider:
 
 # you can add packaging information here
 package:
-#  include:
-#    - include-me.js
-#    - include-me-dir/**
- exclude:
-   - video1080p.mp4
+  #  include:
+  #    - include-me.js
+  #    - include-me-dir/**
+  exclude:
+    - video1080p.mp4
 #    - exclude-me-dir/**
 
 functions:
@@ -63,7 +78,15 @@ functions:
     handler: handler.hello
     layers:
       - { Ref: FfmpegLambdaLayer }
-#    The following are a few example events you can configure
+    events:
+      - s3:
+          bucket: ${self:custom.bucket}
+          event: s3:ObjectCreatedByCompleteMultipartUpload:*
+          rules:
+            # - prefix: uploads/
+            - suffix: .mp4
+          existing: true
+  #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
 #    events:
@@ -117,9 +140,9 @@ functions:
 layers:
   ffmpeg:
     path: layer
-custom:
 
-  bucket: resource-platform-vod
+custom:
+  bucket: resource-platform-vod-input
 # plugins:
 
 #   - serverless-offline
