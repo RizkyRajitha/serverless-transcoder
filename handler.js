@@ -1,14 +1,8 @@
 // const AWS = require("aws-sdk");
 const { transcode } = require("./transcode");
 const { ls } = require("./bashcommands/ls");
-// const BUCKET_NAME = "resource-platform-vod";
-// const IAMKEY = process.env.IAMKEY;
-// const IAMSECRET = process.env.IAMSECRET;
-// const API = "https://backerly.herokuapp.com";
-// const jwt = "";
 const env = process.env.NODE_ENV || "dev";
-
-const { downloadFile } = require("./downloadfile");
+// const { downloadFile } = require("./downloadfile");
 const { mkdir } = require("./bashcommands/mkdir");
 const { pwd } = require("./bashcommands/pwd");
 const { uploadFolder } = require("./uploadtos3");
@@ -23,12 +17,32 @@ module.exports.hello = async (event, context) => {
 
   if (!event.Records) {
     console.log("not an s3 invocation!");
-    return;
+    return {
+      statusCode: 200,
+      body: JSON.stringify(
+        {
+          message: "not an s3 invocation!",
+          input: event,
+        },
+        null,
+        2
+      ),
+    };
   }
 
   if (event.Records.length !== 1) {
     console.log("record error");
-    return;
+    return {
+      statusCode: 200,
+      body: JSON.stringify(
+        {
+          message: "Error : record error",
+          input: event,
+        },
+        null,
+        2
+      ),
+    };
   }
 
   let sourceFileName = event.Records[0].s3.object.key;
@@ -38,7 +52,17 @@ module.exports.hello = async (event, context) => {
   if (!sourceFileName.endsWith(".mp4")) {
     console.log("file format error");
     console.log(String(sourceFileName).split(".").pop());
-    return;
+    return {
+      statusCode: 200,
+      body: JSON.stringify(
+        {
+          message: "Error : file format error",
+          input: event,
+        },
+        null,
+        2
+      ),
+    };
   }
 
   // s3_source_bucket = event["Records"][0]["s3"]["bucket"]["name"];
@@ -84,6 +108,19 @@ module.exports.hello = async (event, context) => {
     }
   } catch (error) {
     console.log(error);
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(
+        {
+          message: "Error",
+          input: event,
+          error,
+        },
+        null,
+        2
+      ),
+    };
   }
 
   return {

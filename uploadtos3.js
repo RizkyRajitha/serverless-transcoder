@@ -1,8 +1,8 @@
 const fsp = require("fs").promises;
 const fs = require("fs");
 const AWS = require("aws-sdk");
-const IAMKEY = process.env.IAMKEY;
-const IAMSECRET = process.env.IAMSECRET;
+const IAMKEY = process.env.S3OUTPUTIAMKEY;
+const IAMSECRET = process.env.S3OUTPUTIAMSECRET;
 const BUCKET_NAME = "resource-platform-vod";
 
 AWS.config.update({

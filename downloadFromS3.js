@@ -1,12 +1,12 @@
 const fsp = require("fs").promises;
 const fs = require("fs");
 const AWS = require("aws-sdk");
-const IAMKEY = process.env.IAMKEY;
-const IAMSECRET = process.env.IAMSECRET;
+const IAMKEY = process.env.S3INPUTIAMKEY;
+const IAMSECRET = process.env.S3INPUTIAMSECRET;
 const BUCKET_NAME = "resource-platform-vod-input";
 
 AWS.config.update({
-  //   region: "us-east-1",
+    region: "us-east-1",
   accessKeyId: IAMKEY,
   secretAccessKey: IAMSECRET,
 });
