@@ -12,26 +12,59 @@ const { downloadFile } = require("./downloadfile");
 const { mkdir } = require("./bashcommands/mkdir");
 const { pwd } = require("./bashcommands/pwd");
 const { uploadFolder } = require("./uploadtos3");
+const { downloadObject } = require("./downloadFromS3");
 
 module.exports.hello = async (event, context) => {
   console.log(event);
   console.log("contetx");
-  console.log(context);
+  // console.log(context);
+  console.log(event.s3);
+  console.log(JSON.stringify(event));
 
-  return;
+  if (!event.Records) {
+    console.log("not an s3 invocation!");
+    return;
+  }
+
+  if (event.Records.length !== 1) {
+    console.log("record error");
+    return;
+  }
+
+  let sourceFileName = event.Records[0].s3.object.key;
+  console.log(sourceFileName);
+  console.log(sourceFileName.endsWith(".mp4"));
+
+  if (!sourceFileName.endsWith(".mp4")) {
+    console.log("file format error");
+    console.log(String(sourceFileName).split(".").pop());
+    return;
+  }
+
+  // s3_source_bucket = event["Records"][0]["s3"]["bucket"]["name"];
+  // s3_source_key = event["Records"][0]["s3"]["object"]["key"];
+
+  // return;
 
   try {
     console.log(env);
     if (env === "dev") {
-      await mkdir("video720p");
-      await transcode("video1080p.mp4", "video720p", "reansoc");
+      // await mkdir("video720p");
+      // await transcode("video1080p.mp4", "video720p", "reansoc");
     } else {
-      await downloadFile(
-        // "https://filesamples.com/samples/video/mp4/sample_1280x720.mp4",
-        // "https://filesamples.com/samples/video/mp4/sample_1280x720_surfing_with_audio.mp4",
-        "/tmp/vidoe2.mp4"
-      );
-      pwd();
+      console.log("initializing download object from s3");
+
+      await downloadObject(sourceFileName, `/tmp`);
+      console.log("downloaded object from s3");
+
+      console.log("ls temp");
+
+      // await downloadFile(
+      //   // "https://filesamples.com/samples/video/mp4/sample_1280x720.mp4",
+      //   // "https://filesamples.com/samples/video/mp4/sample_1280x720_surfing_with_audio.mp4",
+      //   "/tmp/vidoe2.mp4"
+      // );
+      // pwd();
       ls("/tmp");
       console.log("create dir");
       await mkdir("/tmp/video720p");
