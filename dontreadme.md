@@ -16,6 +16,15 @@ add github action caches
 
 decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, ' '));
 
+
+
+### no creds only make policy for lambda function
+### correct permission for lambda function
+### decodeURIComponent
+###  get is not enough list is good too 403 
+###  lamda and s3 bucket shoud be in same regeion 
+
+
 {
 "Version": "2012-10-17",
 "Statement": [
