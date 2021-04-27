@@ -98,13 +98,15 @@ module.exports.hello = async (event, context) => {
       // // ls("/opt");
       // // ls("/opt/ffmpeg");
       console.log("start transcoding");
-      transcode(`/tmp/${sourceFileName}`, "/tmp/video720p", "reansoc");
+      let outfilename = sourceFileName.replace(/\s/g, "");
+
+      transcode(`/tmp/${sourceFileName}`, "/tmp/video720p", outfilename);
       console.log("end transcoding");
       // await transcode("/tmp/vidoe2.mp4", "/tmp/video720p", "reansoc");
       // // transcode("/tmp/vidoe2.mp4");
-      // ls("/tmp");
-      // ls("/tmp/video720p");
-      // await uploadFolder("/tmp/video720p", "ultralegendpro");
+      ls("/tmp");
+      ls("/tmp/video720p");
+      await uploadFolder("/tmp/video720p", outfilename);
 
       return {
         statusCode: 200,
