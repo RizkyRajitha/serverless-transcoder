@@ -10,6 +10,12 @@ repeat for other resolutions
 
 todo do for s3 upload event
 
+
+# todo 
+add github action caches
+
+decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, ' '));
+
 {
 "Version": "2012-10-17",
 "Statement": [

@@ -1,4 +1,3 @@
-// const AWS = require("aws-sdk");
 const { transcode } = require("./transcode");
 const { ls } = require("./bashcommands/ls");
 const env = process.env.NODE_ENV || "dev";
@@ -8,6 +7,7 @@ const { pwd } = require("./bashcommands/pwd");
 const { uploadFolder } = require("./uploadtos3");
 const { downloadObject } = require("./downloadFromS3");
 const { rm } = require("./bashcommands/rm");
+let transcodeInProgress = false;
 
 module.exports.hello = async (event, context) => {
   console.log(event);
@@ -45,8 +45,10 @@ module.exports.hello = async (event, context) => {
       ),
     };
   }
-
-  let sourceFileName = event.Records[0].s3.object.key;
+  console.log(event.Records[0].s3.object.key);
+  let sourceFileName = decodeURIComponent(
+    event.Records[0].s3.object.key.replace(/\+/g, " ")
+  ); //event.Records[0].s3.object.key;
   console.log(sourceFileName);
   console.log(sourceFileName.endsWith(".mp4"));
 
@@ -78,10 +80,10 @@ module.exports.hello = async (event, context) => {
       // await transcode("video1080p.mp4", "video720p", "reansoc");
     } else {
       console.log("initializing download object from s3");
+      console.log("transcoding status - " + transcodeInProgress);
 
       await downloadObject(sourceFileName, `/tmp`);
       console.log("downloaded object from s3");
-
       console.log("ls temp");
 
       // // await downloadFile(
@@ -100,8 +102,10 @@ module.exports.hello = async (event, context) => {
       // // ls("/opt/ffmpeg");
       console.log("start transcoding");
       let outfilename = sourceFileName.replace(/\s/g, "");
-
+      transcodeInProgress = true;
       transcode(`/tmp/${sourceFileName}`, "/tmp/video720p", outfilename);
+      transcodeInProgress = false;
+
       console.log("end transcoding");
       // await transcode("/tmp/vidoe2.mp4", "/tmp/video720p", "reansoc");
       // // transcode("/tmp/vidoe2.mp4");

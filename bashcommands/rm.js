@@ -6,12 +6,11 @@ const { spawnSync } = require("child_process");
  */
 
 function rm(path) {
-  let rm = spawnSync(`rm -r ${path}`, {
+  let rm = spawnSync(`sudo rm -r ${path}`, {
     encoding: "utf8",
   });
 
   console.log(`rm ${path} : \n ${rm.stdout}`);
-
   console.log(rm);
 }
 
