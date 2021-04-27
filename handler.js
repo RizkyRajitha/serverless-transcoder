@@ -7,6 +7,7 @@ const { mkdir } = require("./bashcommands/mkdir");
 const { pwd } = require("./bashcommands/pwd");
 const { uploadFolder } = require("./uploadtos3");
 const { downloadObject } = require("./downloadFromS3");
+const { rm } = require("./bashcommands/rm");
 
 module.exports.hello = async (event, context) => {
   console.log(event);
@@ -107,6 +108,9 @@ module.exports.hello = async (event, context) => {
       ls("/tmp");
       ls("/tmp/video720p");
       await uploadFolder("/tmp/video720p", outfilename);
+      console.log("cleanup tmp folder");
+      rm("/tmp/*");
+      ls("/tmp");
 
       return {
         statusCode: 200,
