@@ -5,7 +5,7 @@ const { spawnSync } = require("child_process");
  * @param {String} path
  */
 function mkdir(path) {
-  let mkdir = spawnSync("mkdir ", [`${path}`], {
+  let mkdir = spawnSync("mkdir", [`${path}`], {
     encoding: "utf8",
   });
 
