@@ -1,4 +1,4 @@
-create a folder for a video trasncoded files ts files 
+create a folder for a video trasncoded files ts files
 
 transcode to that folder
 
@@ -8,6 +8,15 @@ delete that folder
 
 repeat for other resolutions
 
-
-
 todo do for s3 upload event
+
+{
+"Version": "2012-10-17",
+"Statement": [
+{
+"Effect": "Allow",
+"Action": "s3:Put*",
+"Resource": "arn:aws:s3:::resource-platform-vod/*"
+}
+]
+}

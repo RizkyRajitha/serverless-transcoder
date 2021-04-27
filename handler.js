@@ -81,30 +81,42 @@ module.exports.hello = async (event, context) => {
       await downloadObject(sourceFileName, `/tmp`);
       console.log("downloaded object from s3");
 
-      console.log("ls temp");
+      // console.log("ls temp");
 
-      // await downloadFile(
-      //   // "https://filesamples.com/samples/video/mp4/sample_1280x720.mp4",
-      //   // "https://filesamples.com/samples/video/mp4/sample_1280x720_surfing_with_audio.mp4",
-      //   "/tmp/vidoe2.mp4"
-      // );
-      // pwd();
-      ls("/tmp");
-      console.log("create dir");
-      await mkdir("/tmp/video720p");
-      console.log("ls temp");
-      ls("/tmp");
-      // ls("/opt/ffmpeg");
-      // ls("/opt");
-      // ls("/opt/ffmpeg");
-      console.log("start transcoding");
-      transcode("/tmp/vidoe2.mp4", "/tmp/video720p", "reansoc");
-      console.log("end transcoding");
-      // await transcode("/tmp/vidoe2.mp4", "/tmp/video720p", "reansoc");
-      // transcode("/tmp/vidoe2.mp4");
-      ls("/tmp");
-      ls("/tmp/video720p");
-      await uploadFolder("/tmp/video720p", "ultralegendpro");
+      // // await downloadFile(
+      // //   // "https://filesamples.com/samples/video/mp4/sample_1280x720.mp4",
+      // //   // "https://filesamples.com/samples/video/mp4/sample_1280x720_surfing_with_audio.mp4",
+      // //   "/tmp/vidoe2.mp4"
+      // // );
+      // // pwd();
+      // ls("/tmp");
+      // console.log("create dir");
+      // await mkdir("/tmp/video720p");
+      // console.log("ls temp");
+      // ls("/tmp");
+      // // ls("/opt/ffmpeg");
+      // // ls("/opt");
+      // // ls("/opt/ffmpeg");
+      // console.log("start transcoding");
+      // transcode(`/tmp/${sourceFileName}`, "/tmp/video720p", "reansoc");
+      // console.log("end transcoding");
+      // // await transcode("/tmp/vidoe2.mp4", "/tmp/video720p", "reansoc");
+      // // transcode("/tmp/vidoe2.mp4");
+      // ls("/tmp");
+      // ls("/tmp/video720p");
+      // await uploadFolder("/tmp/video720p", "ultralegendpro");
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify(
+          {
+            message: "Go Serverless v1.0! Your function executed successfully!",
+            input: event,
+          },
+          null,
+          2
+        ),
+      };
     }
   } catch (error) {
     console.log(error);

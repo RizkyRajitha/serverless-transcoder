@@ -3,18 +3,20 @@ const fs = require("fs");
 const AWS = require("aws-sdk");
 const IAMKEY = process.env.S3INPUTIAMKEY;
 const IAMSECRET = process.env.S3INPUTIAMSECRET;
-const BUCKET_NAME = "resource-platform-vod-input";
+const BUCKET_NAME = "resource-platform-vod-inputpro";
 
-AWS.config.update({
-    region: "us-east-1",
-  accessKeyId: IAMKEY,
-  secretAccessKey: IAMSECRET,
-});
+// AWS.config.update({
+//     region: "us-east-1",
+//   accessKeyId: IAMKEY,
+//   secretAccessKey: IAMSECRET,
+// });
 
-let s3bucket = new AWS.S3({
-  accessKeyId: IAMKEY,
-  secretAccessKey: IAMSECRET,
-});
+// let s3bucket = new AWS.S3({
+//   accessKeyId: IAMKEY,
+//   secretAccessKey: IAMSECRET,
+// });
+
+let s3bucket = new AWS.S3();
 
 /**
  * download Object from s3 bucket
