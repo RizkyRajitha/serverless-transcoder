@@ -2,9 +2,8 @@ const { spawnSync } = require("child_process");
 
 /**
  * remove all the contetns inside directory
- * path
+ * @param {Sting} path
  */
-
 function rm(path) {
   // "mkdir", [`${path}`],
 
@@ -12,13 +11,14 @@ function rm(path) {
   //   encoding: "utf8",
   // });
 
-  let rm = spawnSync("rm", ["-r","-f", `${path}`], {
+  let rm = spawnSync("rm", ["-r", `${path}`], {
     encoding: "utf8",
+    shell: true,
   });
 
   console.log(`rm ${path} : \n ${rm.stdout}`);
   console.log(rm);
 }
 
-// rm();
+// rm("/home/dealwithit/redda/*");
 module.exports.rm = rm;
