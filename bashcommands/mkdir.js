@@ -24,5 +24,5 @@ function mkdir(path) {
   });
 }
 
-mkdir("layer/adadd");
+// mkdir("layer/adadd");
 module.exports.mkdir = mkdir;
