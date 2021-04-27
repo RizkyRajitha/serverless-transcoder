@@ -81,7 +81,7 @@ module.exports.hello = async (event, context) => {
       await downloadObject(sourceFileName, `/tmp`);
       console.log("downloaded object from s3");
 
-      // console.log("ls temp");
+      console.log("ls temp");
 
       // // await downloadFile(
       // //   // "https://filesamples.com/samples/video/mp4/sample_1280x720.mp4",
@@ -89,11 +89,11 @@ module.exports.hello = async (event, context) => {
       // //   "/tmp/vidoe2.mp4"
       // // );
       // // pwd();
-      // ls("/tmp");
-      // console.log("create dir");
-      // await mkdir("/tmp/video720p");
-      // console.log("ls temp");
-      // ls("/tmp");
+      ls("/tmp");
+      console.log("create dir");
+      await mkdir("/tmp/video720p");
+      console.log("ls temp");
+      ls("/tmp");
       // // ls("/opt/ffmpeg");
       // // ls("/opt");
       // // ls("/opt/ffmpeg");

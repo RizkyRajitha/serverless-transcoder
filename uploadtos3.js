@@ -5,16 +5,13 @@ const IAMKEY = process.env.S3OUTPUTIAMKEY;
 const IAMSECRET = process.env.S3OUTPUTIAMSECRET;
 const BUCKET_NAME = "resource-platform-vod";
 
-AWS.config.update({
-  region: "us-east-1",
-  accessKeyId: IAMKEY,
-  secretAccessKey: IAMSECRET,
-});
+// AWS.config.update({
+//   region: "us-east-1",
+//   accessKeyId: IAMKEY,
+//   secretAccessKey: IAMSECRET,
+// });
 
-let s3bucket = new AWS.S3({
-  accessKeyId: IAMKEY,
-  secretAccessKey: IAMSECRET,
-});
+let s3bucket = new AWS.S3();
 
 /**
  * upload Folder to s3 bucket
