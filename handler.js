@@ -97,10 +97,10 @@ module.exports.hello = async (event, context) => {
       // // ls("/opt/ffmpeg");
       // // ls("/opt");
       // // ls("/opt/ffmpeg");
-      // console.log("start transcoding");
-      // transcode(`/tmp/${sourceFileName}`, "/tmp/video720p", "reansoc");
-      // console.log("end transcoding");
-      // // await transcode("/tmp/vidoe2.mp4", "/tmp/video720p", "reansoc");
+      console.log("start transcoding");
+      transcode(`/tmp/${sourceFileName}`, "/tmp/video720p", "reansoc");
+      console.log("end transcoding");
+      // await transcode("/tmp/vidoe2.mp4", "/tmp/video720p", "reansoc");
       // // transcode("/tmp/vidoe2.mp4");
       // ls("/tmp");
       // ls("/tmp/video720p");
