@@ -1,4 +1,5 @@
 const { spawnSync } = require("child_process");
+// const { unlink, unlinkSync } = require("fs");
 
 /**
  * remove all the contetns inside directory
@@ -15,6 +16,16 @@ function rm(path) {
     encoding: "utf8",
     shell: true,
   });
+
+  // unlinkSync()
+
+  //Backup
+  //   const fs = require('fs').promises;
+
+  // const directory = 'test';
+
+  // fs.rmdir(directory, { recursive: true })
+  //   .then(() => console.log('directory removed!'));
 
   console.log(`rm ${path} : \n ${rm.stdout}`);
   console.log(rm);
