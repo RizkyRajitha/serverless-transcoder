@@ -6,7 +6,7 @@ const { spawnSync } = require("child_process");
  */
 
 function rm(path) {
-  let rm = spawnSync(`sudo rm -r ${path}`, {
+  let rm = spawnSync(`rm -rf ${path}`, {
     encoding: "utf8",
   });
 
