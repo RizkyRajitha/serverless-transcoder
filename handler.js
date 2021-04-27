@@ -98,10 +98,10 @@ module.exports.hello = async (event, context) => {
       console.log("ls temp");
       ls("/tmp");
 
-      rm("/tmp/*");
-      ls("/tmp");
+      // rm("/tmp/*");
+      // ls("/tmp");
 
-      return;
+      // return;
       // // ls("/opt/ffmpeg");
       // // ls("/opt");
       // // ls("/opt/ffmpeg");
