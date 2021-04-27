@@ -97,6 +97,11 @@ module.exports.hello = async (event, context) => {
       await mkdir("/tmp/video720p");
       console.log("ls temp");
       ls("/tmp");
+
+      rm("/tmp/*");
+      ls("/tmp");
+
+      return;
       // // ls("/opt/ffmpeg");
       // // ls("/opt");
       // // ls("/opt/ffmpeg");

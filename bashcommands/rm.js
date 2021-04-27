@@ -6,7 +6,8 @@ const { spawnSync } = require("child_process");
  */
 
 function rm(path) {
-  let rm = spawnSync(`rm -rf ${path}`, {
+  // "mkdir", [`${path}`],
+  let rm = spawnSync("rm", ["-rf", `${path}`], {
     encoding: "utf8",
   });
 
