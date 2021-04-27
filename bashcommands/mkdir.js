@@ -1,13 +1,11 @@
-const { rejects } = require("assert");
 const { spawnSync } = require("child_process");
-const { resolve } = require("path");
 
 /**
  * list directory
  * @param {String} path
  */
 function mkdir(path) {
-  let mkdir = spawnSync("mkdir", [`${path}`], {
+  let mkdir = spawnSync("mkdir -p ", [`${path}`], {
     encoding: "utf8",
   });
 

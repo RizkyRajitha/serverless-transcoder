@@ -12,7 +12,7 @@ function rm(path) {
 
   console.log(`rm ${path} : \n ${rm.stdout}`);
 
-  // console.log(rm);
+  console.log(rm);
 }
 
 // rm();
