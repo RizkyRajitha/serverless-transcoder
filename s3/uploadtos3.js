@@ -27,13 +27,14 @@ function uploadFolder(folderPath, fileName) {
   console.log("starting to upload to s3");
 
   return new Promise(async (resolve, reject) => {
-    fs.readdirSync(folderPath).map(async (file) => {
-      console.log(file);
-      let key = `${fileName}-${fileprefix}/${file}`;
-      let uploadPromise = uploadFile(key, folderPath, file);
-      proarr.push(uploadPromise);
-    });
     try {
+      fs.readdirSync(folderPath).map(async (file) => {
+        console.log(file);
+        let key = `${fileName}-${fileprefix}/${file}`;
+        let uploadPromise = uploadFile(key, folderPath, file);
+        proarr.push(uploadPromise);
+      });
+
       let uploads = await Promise.all(proarr);
       console.log("s3");
       console.log(uploads);

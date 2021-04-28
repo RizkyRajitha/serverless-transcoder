@@ -1,19 +1,14 @@
 const { transcode } = require("./transcode");
 const { ls } = require("./bashcommands/ls");
 const env = process.env.NODE_ENV || "dev";
-// const { downloadFile } = require("./downloadfile");
 const { mkdir } = require("./bashcommands/mkdir");
-const { pwd } = require("./bashcommands/pwd");
-const { uploadFolder } = require("./uploadtos3");
-const { downloadObject } = require("./downloadFromS3");
+const { uploadFolder } = require("./s3/uploadtos3");
+const { downloadObject } = require("./s3/downloadFromS3");
 const { rm } = require("./bashcommands/rm");
 let transcodeInProgress = false;
 
 module.exports.hello = async (event, context) => {
   console.log(event);
-  console.log("contetx");
-  // console.log(context);
-  console.log(event.s3);
   console.log(JSON.stringify(event));
 
   if (!event.Records) {
@@ -45,12 +40,12 @@ module.exports.hello = async (event, context) => {
       ),
     };
   }
-  console.log(event.Records[0].s3.object.key);
+
   let sourceFileName = decodeURIComponent(
     event.Records[0].s3.object.key.replace(/\+/g, " ")
-  ); //event.Records[0].s3.object.key;
+  );
+
   console.log(sourceFileName);
-  console.log(sourceFileName.endsWith(".mp4"));
 
   if (!sourceFileName.endsWith(".mp4")) {
     console.log("file format error");
@@ -68,11 +63,6 @@ module.exports.hello = async (event, context) => {
     };
   }
 
-  // s3_source_bucket = event["Records"][0]["s3"]["bucket"]["name"];
-  // s3_source_key = event["Records"][0]["s3"]["object"]["key"];
-
-  // return;
-
   try {
     console.log(env);
     if (env === "dev") {
@@ -86,39 +76,29 @@ module.exports.hello = async (event, context) => {
       console.log("downloaded object from s3");
       console.log("ls temp");
 
-      // // await downloadFile(
-      // //   // "https://filesamples.com/samples/video/mp4/sample_1280x720.mp4",
-      // //   // "https://filesamples.com/samples/video/mp4/sample_1280x720_surfing_with_audio.mp4",
-      // //   "/tmp/vidoe2.mp4"
-      // // );
-      // // pwd();
       ls("/tmp");
       console.log("create dir");
       await mkdir("/tmp/video720p");
       console.log("ls temp");
       ls("/tmp");
 
-      // rm("/tmp/*");
-      // ls("/tmp");
-
-      // return;
-      // // ls("/opt/ffmpeg");
-      // // ls("/opt");
-      // // ls("/opt/ffmpeg");
       console.log("start transcoding");
+
       let outfilename = sourceFileName.replace(/\s/g, "");
+
       transcodeInProgress = true;
+      
       transcode(`/tmp/${sourceFileName}`, "/tmp/video720p", outfilename);
       transcodeInProgress = false;
 
       console.log("end transcoding");
-      // await transcode("/tmp/vidoe2.mp4", "/tmp/video720p", "reansoc");
-      // // transcode("/tmp/vidoe2.mp4");
+
       ls("/tmp");
       ls("/tmp/video720p");
       await uploadFolder("/tmp/video720p", outfilename);
       console.log("cleanup tmp folder");
       rm("/tmp/*");
+      console.log("ls temp");
       ls("/tmp");
 
       return {
@@ -135,6 +115,10 @@ module.exports.hello = async (event, context) => {
     }
   } catch (error) {
     console.log(error);
+    console.log("cleanup tmp folder");
+    rm("/tmp/*");
+    console.log("ls temp");
+    ls("/tmp");
 
     return {
       statusCode: 200,

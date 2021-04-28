@@ -23,6 +23,16 @@ decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, ' '));
 ### decodeURIComponent
 ###  get is not enough list is good too 403 
 ###  lamda and s3 bucket shoud be in same regeion 
+### shell true 
+  let rm = spawnSync("rm", ["-r", `${path}`], {
+    encoding: "utf8",
+    shell: true,
+  });
+
+
+
+
+  ## test with long videos downlaoded from uuuu
 
 
 {
