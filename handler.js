@@ -41,11 +41,14 @@ module.exports.hello = async (event, context) => {
     };
   }
 
-  let sourceFileName = decodeURIComponent(
-    event.Records[0].s3.object.key.replace(/\+/g, " ")
-  );
+  console.log(event.Records[0].s3.object.key)
 
-  console.log(sourceFileName);
+  let sourceFileName = event.Records[0].s3.object.key 
+  // decodeURIComponent(
+  //   event.Records[0].s3.object.key.replace(/\+/g, " ")
+  // );
+
+  console.log("source filename - "+sourceFileName);
 
   if (!sourceFileName.endsWith(".mp4")) {
     console.log("file format error");
